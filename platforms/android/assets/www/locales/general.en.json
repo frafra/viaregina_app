@@ -1,0 +1,109 @@
+{
+  "polimi-link": "<a href='http://www.polimi.it/en/english-version/' target='_blank'><img class='logo' style='max-width:15%; padding-right:10px;' src='img/polimi_3.png'></a>",
+  "registration":
+  {
+    "label": "Welcome to Via Regina Slow Tourism! Please insert the following information:",
+    "gender-label": "Gender",
+    "gender-male": "Male",
+    "gender-female": "Female",
+    "gender-unknown": "Prefer not to say",
+    "age-label": "Age",
+    "work-label": "Work status",
+    "work-employed": "Employed",
+    "work-student": "Student",
+    "work-unemployed": "Unemployed and seeking work",
+    "work-retired": "Retired",
+    "work-other": "Other",
+    "button": "Register"
+  },
+  "navbar":
+  {
+    "add": "Add",
+    "my": "My Map",
+    "all": "Everyone",
+    "about-map": "About",
+    "about-register": "About",
+    "register": "Register"
+  },
+  "buttons":
+  {
+    "contribute": "Insert your point of interest!",
+    "cancel": "Cancel",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Submit"
+  },
+  "classes":
+  {
+    "select": "Select the classification of your point",
+    "civil-building": " Civil building",
+    "religious-building": " Religious building",
+    "rural-building": " Rural building",
+    "military-building": " Military building",
+    "museum": " Musuem",
+    "archeological": " Archeological element",
+    "factory": " Factory",
+    "support": " Support for traffic/artifacts",
+    "bounding": " Bounding/escarpment",
+    "surface": " Surface",
+    "transportation": " Transportation",
+    "service": " Service",
+    "accommodation": " Accommodation/overnight",
+    "food": " Food service",
+    "product": " Product",
+    "morphological": " Morphological element",
+    "structural": " Structural element",
+    "bing": " Bing Aerial",
+    "group": "Group",
+    "subclass": "Subclass",
+    "class": "Class",
+    "name": "Name",
+    "date": "Date",
+    "user": "User",
+    "rating": "Rating",
+    "comment_popup": "Comment"
+  },
+  "comment": "Any comments?",
+  "photo-take": "Take a picture...",
+  "photo-choose": "Choose an image...",
+  "rating":
+  {
+    "question": "How do you rate this point?",
+    "one": "not beautiful",
+    "seven": "beautiful"
+  },
+  "messages":
+  {
+    "registration-form-empty": "Please complete the registration form!",
+    "geolocation-error": "Can not get your current location!",
+    "registration-success": "Thank you! Now you can start to contribute!",
+    "marker-popup": "Not your current location? <br> Drag the marker to correct!",
+    "contribution-success": "Thank you very much for the contribution!",
+    "allemomap-nointernet": "The map displaying all people's contributions can not be shown due to no Internet Connection!",
+    "location-enable": "Please enable your location services!",
+    "ok": "OK",
+    "registration-noInternet": "Registration fails due to no Internet connection!",
+    "getting-location": "Getting your current location...",
+    "warning-location": "Note: this may not be your current location!",
+    "gps-error":"GPS error! Please drag the marker to set your current location!",
+    "contribution-success-noInternet":"Thank you for the contribution. Note that you are currently in offline mode, please re-open the app once you have Internet connection to share your contributions.",
+    "photo-unavailable": "Taking photo is available only on Android and iOS apps, and not from browsers.",
+    "bing-noInternet": "Bing Aerial cannot be displayed due to no Internet connection!",
+    "osm-noInternet": "OpenStreetMap cannot be displayed due to no Internet connection!",
+    "storage-error": "This browser does not support local storage.",
+    "error": "Error!"
+  },
+  "about": "<a href='http://www.viaregina.eu/' target='_blank'><b>The Paths of Regina</b></a> is an INTERREG project between Italy and Switzerland. <b>Via Regina Slow Tourism</b> (App and WebGIS) is a project of <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, developed as an extension of the previous project and funded by: <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.en.regione.lombardia.it' target='_blank'>Lombardy Region</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> and <a href='http://www.sviluppocomo.it/en/' target='_blank'>Sviluppo Como</a>.",
+  "stat":
+  {
+    "total-my": "In total, you have ",
+    "contr-my-single": " contribution.",
+    "contr-my-plural": " contributions.",
+    "total-all-single": "In total, there is ",
+    "contr-all-single": " contribution within 5km of your current location.",
+    "total-all-plural": "In total, there are ",
+    "contr-all-plural": " contributions within 5km of your current location.",
+    "nopoint-all": "No body has added an emotional rating within 5km of your current location.",
+    "nopoint-my": "You have not had any contribution yet!"
+  }
+}

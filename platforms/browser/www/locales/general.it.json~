@@ -1,0 +1,108 @@
+{
+  "polimi-link": "<a href='http://www.polimi.it/' target='_blank'><img class='logo' style='max-width:15%; padding-right:10px;' src='img/polimi_3.png'></a>",
+  "registration":
+  {
+    "label": "Benvenuto su Via Regina Slow Tourism! Ti chiediamo di inserire le seguenti informazioni:",
+    "gender-label": "Genere",
+    "gender-male": "Uomo",
+    "gender-female": "Donna",
+    "gender-unknown": "Non specificato",
+    "age-label": "Età",
+    "work-label": "Condizione lavorativa",
+    "work-employed": "Occupato",
+    "work-student": "Studente",
+    "work-unemployed": "Disoccupato",
+    "work-retired": "Pensionato",
+    "work-other": "Altro",
+    "button": "Registrati"		
+  },
+  "navbar":
+  {
+    "add": "Aggiungi",
+    "my": "La mia mappa",
+    "all": "Mappa degli utenti",
+    "about-map": "Informazioni",
+    "about-register": "Informazioni",
+    "register": "Registrati"
+  },
+  "buttons":
+  {
+    "contribute": "Inserisci il tuo punto di interesse!",
+    "cancel": "Annulla",
+    "next": "Avanti",
+    "back": "Indietro",
+    "submit": "Invia"
+  },
+  "classes":
+  {
+    "select": "Seleziona la classificazione del punto",
+    "civil-building": " Edilizia civile",
+    "religious-building": " Edilizia religiosa",
+    "rural-building": " Edilizia rurale",
+    "military-building": " Edilizia militare",
+    "museum": " Museo",
+    "archeological": " Elemento archeologico",
+    "factory": " Opificio",
+    "support": " Supporto del traffico/manufatto",
+    "bounding": " Delimitazione/scarpata",
+    "surface": " Superficie",
+    "transportation": " Trasporto",
+    "service": " Servizio",
+    "accommodation": " Alloggio/pernottamento",
+    "food": " Ristorazione",
+    "product": " Prodotto",
+    "morphological": " Elemento morfologico",
+    "structural": " Elemento strutturale",
+    "bing": " Bing Aereo",
+    "group": "Gruppo",
+    "subclass": "Sottoclasse",
+    "class": "Classe",
+    "name": "Nome",
+    "date": "Data",
+    "user": "Utente",
+    "rating": "Valutazione",
+    "comment_popup": "Commento"
+  },
+  "rating":
+  {
+    "question": "Come valuti questo punto?",
+    "one": "non bello",
+    "seven": "bello"
+  },
+  "comment": "Commenti?",
+  "photo-take": "Scatta una foto...",
+  "photo-choose": "Scegli un'immagine...",
+  "messages":
+  {
+    "registration-form-empty": "Completa i tuoi dati!",
+    "geolocation-error": "Non è possibile trovare la tua posizione corrente!",
+    "registration-success": "Grazie! Ora puoi iniziare a contribuire all’applicazione!",
+    "marker-popup": "Non è la tua posizione corrente? Trascina l’icona per correggerla!",
+    "contribution-success": "Grazie per il tuo contributo!",
+    "allemomap-nointernet": "L’opzione mappe ‘Mappa degli utenti’ non può essere mostrata perché la connessione Internet è assente!",
+    "location-enable": "Abilita i servizi di geolocalizzazione!",
+    "ok": "OK",
+    "registration-noInternet": "La registrazione è fallita perché la connessione Internet è assente!",
+    "getting-location": "Rilevando la tua posizione...",
+    "warning-location": "Nota: questa potrebbe non essere la tua posizione corrente!",
+    "gps-error":"Errore GPS! Ti preghiamo di spostare l’indicatore della posizione sull’area in cui ti trovi ora.",
+    "contribution-success-noInternet":"Grazie per il tuo contributo. Nota: in questo momento non sei connesso ad Internet, ti preghiamo di chiudere e riaprire l’app non appena sarai connesso per condividere automaticamente i tuoi contributi.",
+    "photo-unavailable": "È possibile scattare una foto solo dalle app Android e iOS e non da browser.",
+    "bing-noInternet": "Bing Aerial non può essere mostrata perché la connessione Internet è assente!",
+    "mapquest-noInternet": "MapQuest OpenStreetMap non può essere mostrata perché la connessione Internet è assente!",
+    "storage-error": "Questo browser non supporta la memoria locale."
+  },
+  "about": "<a href='http://www.viaregina.eu/' target='_blank'><b>I Cammini della Regina</b></a> è un progetto INTERREG Italia-Svizzera. Il progetto <b>Via Regina Slow Tourism</b>, estensione del precedente e nell'ambito del quale è stato sviluppato questo sistema (App e WebGIS), è un progetto del <a href='http://www.polimi.it/' target='_blank'>Politecnico di Milano</a>, finanziato da: <a href='http://www.polimi.it/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.regione.lombardia.it' target='_blank'>Regione Lombardia</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> e <a href='http://www.sviluppocomo.it/' target='_blank'>Sviluppo Como</a>.",
+  "stat":
+  {
+    "total-my": "In totale, hai ",
+    "contr-my-single": " contributo.",
+    "contr-my-plural": " contributi.",
+    "total-all-plural": "In totale, ci sono ",
+    "contr-all-plural": " contributi entro 5 km dalla tua posizione.",
+    "total-all-single": "In totale, c'è ",
+    "contr-all-single": " contributo entro 5 km dalla tua posizione.",
+    "nopoint-all": "Nessuno ha fornito contributi in un raggio di 5 km dalla tua posizione.",
+    "nopoint-my": "Non hai ancora fornito alcun contributo!"
+  }	
+}
