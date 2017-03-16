@@ -31,18 +31,18 @@ function afterLangInit(){
 
   //pouchdb setting
   var markersMy, markersAll;
-  var db = new PouchDB('db_local',{auto_compaction:true});
-  var remoteAllCouch = SETTINGS.db_points_url;
-  db.changes({
+  var localDB = new PouchDB('db_local',{auto_compaction:true});
+  var remotePointsURL = SETTINGS.db_points_url;
+  /*localDB.changes({
     since: 'now',
     live: true
   }).on('change', function(change) {
     //handle change
-  });
+  });*/
 
-  if (remoteAllCouch) {
+  if (remotePointsURL) {
     var opts = {live: true};
-    db.replicate.to(remoteAllCouch, opts, syncError);
+    localDB.replicate.to(remotePointsURL, opts, syncError);
   }
 
   function syncError(err) {
@@ -93,38 +93,45 @@ function afterLangInit(){
     }
 
     //register user
-    var db_users = new PouchDB(SETTINGS.db_users_url);
+    var remoteUsersDB = new PouchDB(SETTINGS.db_users_url);
     var timestamp= new Date().toISOString();
-    db_users.get(uuid).then(function (doc) {
-      //if existed, update the user
-      doc.timestamp = timestamp;
-      doc.gender = gender;
-      doc.age = age;
-      doc.workstatus = workstatus;
-      db_users.put(doc, function callback(err, result) {
+    remoteUsersDB.get(uuid).then(function (doc) {
+      //if exists, update the user
+      //console.log(uuid);
+      var user = {
+        _id: uuid,
+        _rev: doc._rev,
+        timestamp: timestamp,
+        gender: gender,
+        age: age,
+        workstatus: workstatus
+      };
+      remoteUsersDB.put(user, function callback(err, result) {
         if (!err) {
-          //console.log('Successfully registered a user!');
+          //console.log('Successfully updated the user!');
           navigator.notification.alert(i18n.t('messages.registration-success'), alertDismissed_registrationSuccess, "Via Regina", i18n.t('messages.ok'));
         }
         else {
+          //console.log('NOT successfully updated the user!');
           navigator.notification.alert(i18n.t('messages.error') + " " + err, null, "Via Regina", i18n.t('messages.ok'));
         }
       });
     }).catch(function (err) {
-      //if not existed, add the user
-      var ViaRegina_user = {
+      //if not exists, add the user
+      var user = {
         _id: uuid,
         timestamp: timestamp,
         gender: gender,
         age: age,
         workstatus: workstatus
       };
-      db_users.put(ViaRegina_user, function callback(err, result) {
+      remoteUsersDB.put(user, function callback(err, result) {
         if (!err) {
-          //console.log('Successfully registered a user!');
+          //console.log('Successfully registered the user!');
           navigator.notification.alert(i18n.t('messages.registration-success'), alertDismissed_registrationSuccess, "Via Regina", i18n.t('messages.ok'));
         }
         else {
+          //console.log('NOT successfully registered the user!');
           navigator.notification.alert(i18n.t('messages.error') + " " + err, null, "Via Regina", i18n.t('messages.ok'));
         }
       });
@@ -237,12 +244,12 @@ function afterLangInit(){
     });
     tilelayer.addTo(map);
 
-    if(remoteAllCouch) {
+    /*if(remotePointsURL) {
       var opts = {live: true};
-      db.replicate.to(remoteAllCouch, opts, syncError);
+      localDB.replicate.to(remotePointsURL, opts, syncError);
     }
     function syncError() {
-    }
+    }*/
   }
 
   function classIcon(classPOI) {
@@ -436,7 +443,7 @@ function afterLangInit(){
     marker.setLatLng (curLatLng);
 
     //read data from the local database
-    db.allDocs({include_docs: true, descending: true}, function(err, doc) {
+    localDB.allDocs({include_docs: true, descending: true}, function(err, doc) {
       if(err){
         return;
       }
@@ -526,8 +533,8 @@ function afterLangInit(){
       marker.setLatLng (curLatLng);
 
       //read data from the server database
-      var db_server = new PouchDB(remoteAllCouch, {size: 50});
-      db_server.allDocs({include_docs: true, descending: true}, function(err, doc) {
+      var remotePointsDB = new PouchDB(remotePointsURL, {size: 50});
+      remotePointsDB.allDocs({include_docs: true, descending: true}, function(err, doc) {
         if(err){
           navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok') );
           //start the main page
@@ -688,7 +695,7 @@ function afterLangInit(){
         }
       }
     };
-    db.put(poi, function callback(err, result) {
+    localDB.put(poi, function callback(err, result) {
       if (!err) {
         //console.log('Successfully posted a todo!');
         //networkState_browser = serverReachable();
@@ -780,7 +787,7 @@ function afterLangInit(){
       //console.log(image);
     }
 
-    //when the file is read it triggers the onload event above.
+    //when the file is read it triggers the onload event above
     reader.readAsDataURL(file);
   }
 
@@ -844,5 +851,5 @@ function afterLangInit(){
 
 function initialize() {
   ln.init();
-  afterLangInit();
+  //afterLangInit();
 }

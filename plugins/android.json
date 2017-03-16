@@ -7,13 +7,19 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-camera": {
             "PACKAGE_NAME": "polimi.geolab.viaregina"
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "polimi.geolab.viaregina"
         },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "polimi.geolab.viaregina"
+        },
         "cordova-plugin-file": {
+            "PACKAGE_NAME": "polimi.geolab.viaregina"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "polimi.geolab.viaregina"
         },
         "cordova-plugin-globalization": {
@@ -25,16 +31,10 @@
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "polimi.geolab.viaregina"
         },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "polimi.geolab.viaregina"
+        },
         "cordova.plugins.diagnostic": {
-            "PACKAGE_NAME": "polimi.geolab.viaregina"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "polimi.geolab.viaregina"
-        },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "polimi.geolab.viaregina"
-        },
-        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "polimi.geolab.viaregina"
         }
     },
