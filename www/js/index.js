@@ -176,7 +176,7 @@ function afterLangInit(){
     bing = new L.BingLayer("AqSfYcbsnUwaN_5NvJfoNgNnsBfo1lYuRUKsiVdS5wQP3gMX6x8xuzrjZkWMcJQ1", {type: 'AerialWithLabels'});
 
     tilelayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy;OpenStreetMap contributors.">',
+      attribution: '&copy; OpenStreetMap contributors',
       //minZoom:12,
       //maxZoom:17,
       subdomains:['a','b','c'],
@@ -236,7 +236,7 @@ function afterLangInit(){
     map.removeLayer(tilelayer);
 
     tilelayer = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy;OpenStreetMap contributors.">',
+      attribution: '&copy; OpenStreetMap contributors',
       //minZoom:12,
       //maxZoom:17,
       subdomains:['a','b','c'],
