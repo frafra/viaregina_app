@@ -60,6 +60,10 @@
               <option value="other" data-i18n="registration.work-other">Other</option>
             </select>
           </fieldset>
+          <fieldset class="ui-field-contain">
+            <label for="xlsFile" data-i18n="registration.work-label">choose xls file</label>
+            <input type="file" id="xlsFile">
+          </fieldset>
           <a id="register" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="registration.button">Register</a>
         </div>
 
@@ -83,15 +87,19 @@
             <li><a id="navbar-my" data-i18n="navbar.my">My Map</a></li>
             <li><a id="navbar-all" data-i18n="navbar.all">Everyone</a></li>
             <li><a id="navbar-about-map" data-i18n="navbar.about-map">About</a></li>
+            <li><a id="navbar-change-xls" >Change Xls</a></li>
           </ul>
         </div>
 
         <div class="map" id="map"></div>
 
-        <div id="start-menu" class="bottompanel">
-          <a id="start-menu-contribute" data-role="button" data-icon="plus" data-iconpos="right" data-theme="c" data-i18n="buttons.contribute">Insert your point of your interest!</a>
+        <div id="_dynamicContentHolder" class="bottompanel" style="display: block;">
+          <div id="_dynamicContent"></div>
+          <a id="_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.back">Back</a>
+          <a id="_next" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.submit">Submit</a>
         </div>
 
+<!---
         <div id="radio-class" class="bottompanel">
           <a href="#popupClass" id="classPOI" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-carat-d" data-rel="popup" data-position-to="window" data-inline="true" data-theme="c" data-transition="pop" data-i18n="classes.select">Select the classification of your point</a>
           <div data-role="popup" id="popupClass" data-theme="c" class="ui-corner-all">
@@ -163,6 +171,7 @@
           <a id="photo_back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" data-theme="c" data-i18n="buttons.back">Back</a>
           <a id="photo_next" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="buttons.submit">Submit</a>
         </div>
+-->
 
         <div id="mymap-stat" class="bottompanel">
           <label id="mymap-stat-text" data-i18n="stat.total">In total, you have ...</label>
@@ -175,6 +184,12 @@
           <p class="text_about" class="notUnderlinedLink" data-i18n="[html]about"><a href='http://www.viaregina.eu/' target='_blank'><b>The Paths of Regina</b></a> is an INTERREG project between Italy and Switzerland. <b>Via Regina Slow Tourism</b> (App and WebGIS) is a project of <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, developed as an extension of the previous project and funded by: <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.en.regione.lombardia.it' target='_blank'>Lombardy Region</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> and <a href='http://www.sviluppocomo.it/en/' target='_blank'>Sviluppo Como</a>.
             <br>The App acknowledges the <a href='https://github.com/cartogroup/emomap' target='_blank'>project EmoMap</a>, developed by the <a href='http://cartography.tuwien.ac.at/' target='_blank'>Research Group Cartography</a> in the <a href='http://geo.tuwien.ac.at/' target='_blank'>Department of Geodesy and Geoinformation</a> in <a href='https://www.tuwien.ac.at/en/' target='_blank'>TU Wien University</a>. The code of the project is protected by <a href='https://github.com/cartogroup/emomap/blob/51e8f5407b6dfee7b0c85aa6e96aa529bd44cbc5/LICENSE.txt' target='_blank'>this license</a>.
           </p>
+        </div>
+        <div id="change-xls">
+            <fieldset class="ui-field-contain">
+                <label for="xlsFile" data-i18n="registration.work-label">change xls file</label>
+                <input type="file" id="changeXlsFile"  >
+            </fieldset>
         </div>
       </div>
     </div>
@@ -196,5 +211,8 @@
   <script type="text/javascript" charset="utf-8" src="js/index.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/legend_poi.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/load.js"></script>
+  <script type="text/javascript" src="js/lib/jszip.js"></script>
+  <script type="text/javascript" src="js/lib/xlsx.js"></script>
+  <script type="text/javascript" src="js/lib/dynamic.gx.js"></script>
 </body>
 </html>

@@ -5,6 +5,10 @@ var tileLayer;
 var map;
 var odk;
 var flag_allMarkers;
+var marker;
+var markersAll;
+var markersMy;
+var localDB;
 
 function afterLangInit(){
   //initial values
@@ -14,8 +18,7 @@ function afterLangInit(){
   image = "",
   rating = 4,
   comment= "",
-  isContributing = false, //is it in contributing mode?
-  marker;
+  isContributing = false; //is it in contributing mode?
 
   var watchId = null;
   var watchCallback_Popup = true; //true means the first time of receiving the watchPosition result
@@ -30,8 +33,7 @@ function afterLangInit(){
   //console.log("network state (browser): " + networkState_browser);
 
   //pouchdb setting
-  var markersMy, markersAll;
-  var localDB = new PouchDB('db_local',{auto_compaction:true});
+  localDB = new PouchDB('db_local',{auto_compaction:true});
   var remotePointsURL = SETTINGS.db_points_url;
   /*localDB.changes({
     since: 'now',
@@ -54,6 +56,41 @@ function afterLangInit(){
   if (isApplaunch){
     $("#start-page").hide();
     $("#main-page").show();
+    rawXlsData = window.localStorage.getItem('xlsData'); // to check if the xlsData exists
+    xlsData = JSON.parse(rawXlsData); //change the simple string to object,we need data types to construct the html
+    for (var i = 0; i < xlsData.length; i++) { //yeki yeki obj haro barmidare
+        currentRowi = xlsData[i];
+        if (TYPES[(currentRowi["type"].trim().toUpperCase())] != undefined) {
+            row = TYPES[(currentRowi["type"].trim().toUpperCase())]();
+        } else {
+            tmp_typ = currentRowi["type"];
+            if (tmp_typ.substring(0, select_one_type.length) == select_one_type ||
+                tmp_typ.substring(0, select_multi_type.length) == select_multi_type) {
+                row = TYPES[(tmp_typ.trim().toUpperCase().split(" ")[0])]();
+                var selectListName = tmp_typ.trim().split(" ")[1];
+                /*for (i = 0; i < choiceList.length; i++) {
+                 if (choiceList[i].listName == selectListName) {
+                 row.setChoice(choiceList[i]);
+                 break;
+                 }
+                 }*/
+                var choice = new Choice();
+                choice.setListName(selectListName);
+                choice.setItems(currentRowi["choice"].items);
+                choiceList.push(choice);
+                row.setChoice(choice);
+
+
+            } else { //not important
+                row = new Row();
+            }
+        }
+        row.rowFromObject(currentRowi);
+        rowList.push(row);
+    }
+
+    startByX(); // here is the place where dynamic generator is called and start generating the html
+    // This would be the start point of Dynamic generator in case there ISN'T data in xlsData local storage.
   }
   else { //first time launch
     $("#start-page").show();
@@ -148,6 +185,8 @@ function afterLangInit(){
       map._onResize();
       //set isLaunch as true
       window.localStorage.setItem('isLaunch',true);
+      window.localStorage.setItem('xlsData', JSON.stringify(rowList));
+      startByX(); // jump to my dynamic.gx.js /////
     }
   });
   /***
@@ -341,11 +380,11 @@ function afterLangInit(){
       marker.bindPopup(messages).openPopup();
 
     //enabling class selection to start contributing
-    $("#start-menu,#take-photo,#mymap-stat,#allmap-stat,#info-map,#info-register,#register-page,.legend,#slider-rating, #comment").hide();
+    $("#start-menu,#take-photo,#mymap-stat,#allmap-stat,#info-map,#change-xls,#info-register,#register-page,.legend,#slider-rating, #comment").hide();
     $("#radio-class").show();
     $("#rating_next").addClass("ui-disabled"); //disable "next"
     $("#class_next").addClass("ui-disabled"); //disable "next"
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-register,#navbar-about-register").addClass("ui-disabled"); //disable all nav bars
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-register,#navbar-about-register").addClass("ui-disabled"); //disable all nav bars
 
     $('#popupClass').css('overflow-y', 'scroll');
 
@@ -388,9 +427,9 @@ function afterLangInit(){
   $("#navbar-start").click(function(){
     //start the main page
     $("#start-menu, #map").show();
-    $("#radio-class,#take-photo,#slider-rating,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,.legend_b,#comment").hide();
+    $("#radio-class,#take-photo,#slider-rating,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,.legend_b,#comment").hide();
     $("#navbar-start").addClass("ui-btn-active");
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
 
     //clean map view
     if (markersAll){
@@ -416,9 +455,9 @@ function afterLangInit(){
     $('.legend').empty();
     $('.legend_b').empty();
     $('.legend_b').remove();
-    $("#start-menu,#radio-class,#slider-rating,#take-photo,#allmap-stat,#info-map,#info-register,#register-page,#mymap-stat,.legend,#comment").hide();
+    $("#start-menu,#radio-class,#slider-rating,#take-photo,#allmap-stat,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,.legend,#comment").hide();
     $("#map").show();
-    $("#navbar-start,#navbar-all,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-start,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-my").addClass("ui-btn-active");
     addLegend(ln.language.code);
     addLegendButton();
@@ -516,17 +555,17 @@ function afterLangInit(){
       navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok'));
       //start the main page
       $("#start-menu").show();
-      $("#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat, #allmap-stat,.legend,.legend_b,#slider-rating,#comment").hide();
+      $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat, #allmap-stat,.legend,.legend_b,#slider-rating,#comment").hide();
       $("#navbar-start").addClass("ui-btn-active");
-      $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+      $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
       map.hasLayer(marker) || map.addLayer(marker);
       map._onResize();
       return;
     }
     else{
-      $("#start-menu,#radio-class,#take-photo,#mymap-stat,#info-map,#info-register,#register-page,.legend,#allmap-stat,#slider-rating,#comment").hide();
+      $("#start-menu,#radio-class,#take-photo,#mymap-stat,#info-map,#change-xls,#info-register,#register-page,.legend,#allmap-stat,#slider-rating,#comment").hide();
       $("#map").show();
-      $("#navbar-start,#navbar-my,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+      $("#navbar-start,#navbar-my,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
       $("#navbar-all").addClass("ui-btn-active");
 
       map.panTo(curLatLng);
@@ -539,9 +578,9 @@ function afterLangInit(){
           navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok') );
           //start the main page
           $("#start-menu").show();
-          $("#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat, #allmap-stat,.legend,.legend_b,#slider-rating,#comment").hide();
+          $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat, #allmap-stat,.legend,.legend_b,#slider-rating,#comment").hide();
           $("#navbar-start").addClass("ui-btn-active");
-          $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+          $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
           map.hasLayer(marker) || map.addLayer(marker);
           map._onResize();
           return;
@@ -580,11 +619,34 @@ function afterLangInit(){
   show the all contributions - end
   ***/
 
+  //change xls file
+  $("#navbar-change-xls").on("vclick", function () {
+      $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map, .legend,#slider-rating,#comment,#info-register,#register-page,#info-map,#change-xls").hide();
+      $("#change-xls").show();
+      $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-register,#navbar-register,#navbar-about-map").removeClass("ui-btn-active");
+      $("#navbar-change-xls").addClass("ui-btn-active");
+
+      //clean map view
+      if (markersAll) {
+          map.removeLayer(markersAll.markers_historical_cultural);
+          map.removeLayer(markersAll.markers_morphological);
+          map.removeLayer(markersAll.markers_touristic);
+          map.removeLayer(markersAll.markers_critical);
+      }
+      if (markersMy) {
+          map.removeLayer(markersMy.markers_historical_cultural);
+          map.removeLayer(markersMy.markers_morphological);
+          map.removeLayer(markersMy.markers_touristic);
+          map.removeLayer(markersMy.markers_critical);
+      }
+      marker.closePopup();
+  });
+
   //information about Via Regina - map
   $("#navbar-about-map").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map, .legend,#slider-rating,#comment,#info-register,#register-page").hide();
+    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map, .legend,#slider-rating,#comment,#change-xls,#info-register,#register-page").hide();
     $("#info-map").show();
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-about-map").addClass("ui-btn-active");
 
     //clean map view
@@ -605,25 +667,25 @@ function afterLangInit(){
 
   //information about Via Regina - register
   $("#navbar-about-register").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map,.legend,#slider-rating,#comment,#info-map,#register-page").hide();
+    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map,.legend,#slider-rating,#comment,#info-map,#change-xls,#register-page").hide();
     $("#info-register").show();
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-about-register").addClass("ui-btn-active");
   });
 
   //register
   $("#navbar-register").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map,.legend,#slider-rating,#comment,#info-register,#info-map").hide();
+    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map,.legend,#slider-rating,#comment,#info-register,#info-map,#change-xls").hide();
     $("#register-page").show();
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-about-register").removeClass("ui-btn-active");
+    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register").removeClass("ui-btn-active");
     $("#navbar-register").addClass("ui-btn-active");
   });
 
   $("#class_cancel").click(function(){
     //go back to start page
     $("#start-menu").show();
-    $("#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#slider-rating,#comment").hide();
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
+    $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#slider-rating,#comment").hide();
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
     marker.setIcon(classIcon());
     messages_warninglocation = i18n.t('messages.warning-location');
     marker.setPopupContent(messages_warninglocation).closePopup();
@@ -637,41 +699,41 @@ function afterLangInit(){
   });
 
   $("#class_next").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#comment").hide();
+    $("#start-menu,#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#comment").hide();
     $("#slider-rating").show();
   });
 
   $("#rating_back").click(function(){
-    $("#start-menu,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
+    $("#start-menu,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
     $("#radio-class").show();
   });
 
   $("#rating_next").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating").hide();
+    $("#start-menu,#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating").hide();
     $("#comment").show();
   });
 
   $("#comment_back").click(function(){
-    $("#start-menu,#radio-class,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
+    $("#start-menu,#radio-class,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
     $("#slider-rating").show();
   });
 
   $("#comment_next").click(function(){
     comment =  $("#comment-input").val(); //get comment
     //console.log("comment: " + comment);
-    $("#start-menu,#radio-class,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
+    $("#start-menu,#radio-class,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
     $("#take-photo").show();
   });
 
   $("#photo_back").click(function(){
-    $("#start-menu,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#radio-class,#slider-rating").hide();
+    $("#start-menu,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#radio-class,#slider-rating").hide();
     $("#comment").show();
   });
 
   $("#photo_next").click(function(){
     //submit to pouchdb and couchd, add result to map, set all variables to initial values
-    $("#start-menu,#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#comment,#slider-rating").hide();
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
+    $("#start-menu,#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#comment,#slider-rating").hide();
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
 
     var timestamp = new Date().toISOString();
     //here get LatLng of the marker
@@ -718,7 +780,7 @@ function afterLangInit(){
 
     function alertDismissed_contributionSuccess() {
       $("#start-menu").show();
-      $("#radio-class,#take-photo,#info-map,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#slider-rating,#comment").hide();
+      $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#slider-rating,#comment").hide();
       $("#navbar-start").addClass("ui-btn-active");
       marker.setIcon(classIcon());
       messages_warninglocation = i18n.t('messages.warning-location');
@@ -847,6 +909,13 @@ function afterLangInit(){
   /***
   IMAGE - end
   ***/
+
+  registerXlsRCallback();  // goes to Dynamic.gx.js and call registerXlsRCallback function to start processing a xls file.
+  //this would be the Start point of the Dynamic generator app in case there IS xlsData in local storage
+
+  $('#altXlsFile').on("vclick", function () {
+      changeXls();
+  });
 }
 
 function initialize() {
