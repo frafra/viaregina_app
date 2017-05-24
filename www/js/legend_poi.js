@@ -30,7 +30,7 @@ function isImageEmpty(id, length){
   if (length == 0)
     return "";
   else
-    return "<br><center><img src=http://viaregina3.como.polimi.it/db_points_url/" + id + "/image.jpg" + " width=200px></center>";
+    return "<br><center><img src=/db_points_url/" + id + "/image.jpg" + " width=200px></center>";
 }
 
 function splitClasses(str, lang){

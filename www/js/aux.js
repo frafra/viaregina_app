@@ -8,7 +8,7 @@ function serverReachable() {
     //append a random string to the current hostname,
     //to make sure we're not hitting the cache
     //"http://localhost:8000/?rand=" + Math.random(),
-    "http://viaregina3.como.polimi.it/?rand=" + Math.random(),
+    "/?rand=" + Math.random(),
     //make a synchronous request
     false
   );

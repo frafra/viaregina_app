@@ -1,1 +1,1 @@
-var SETTINGS = {db_points_url:'http://viaregina3.como.polimi.it/db_points_url', db_users_url:'http://viaregina3.como.polimi.it/db_users_url'};
+var SETTINGS = {db_points_url:'http://127.0.0.1:5984/db_points_url', db_users_url:'http://127.0.0.1:5984/db_users_url'};
