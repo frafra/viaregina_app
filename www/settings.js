@@ -1,1 +1,5 @@
-var SETTINGS = {db_points_url:'http://127.0.0.1:5984/db_points_url', db_users_url:'http://127.0.0.1:5984/db_users_url'};
+let DATABASE = `//${document.location.hostname}:5984`;
+var SETTINGS = {
+  db_points_url:`${DATABASE}/db_points_url`,
+  db_users_url:`${DATABASE}/db_users_url`
+};
