@@ -15,6 +15,23 @@ function showOnly(selector) {
     $(selector).show();
 }
 
+function cleanMapView() {
+  //clean map view
+  if (markersAll) {
+      map.removeLayer(markersAll.markers_historical_cultural);
+      map.removeLayer(markersAll.markers_morphological);
+      map.removeLayer(markersAll.markers_touristic);
+      map.removeLayer(markersAll.markers_critical);
+  }
+  if (markersMy) {
+      map.removeLayer(markersMy.markers_historical_cultural);
+      map.removeLayer(markersMy.markers_morphological);
+      map.removeLayer(markersMy.markers_touristic);
+      map.removeLayer(markersMy.markers_critical);
+  }
+  marker.closePopup();
+}
+
 function afterLangInit(){
   //initial values
   var curLatLng = [45.810991, 9.081521],
@@ -351,20 +368,7 @@ function afterLangInit(){
   $("#start-menu-contribute").click(function(){
     isContributing = true;
     watchCallback_Popup = true;
-
-    if (markersAll){
-      map.removeLayer(markersAll.markers_historical_cultural);
-      map.removeLayer(markersAll.markers_morphological);
-      map.removeLayer(markersAll.markers_touristic);
-      map.removeLayer(markersAll.markers_critical);
-    }
-    if (markersMy){
-      map.removeLayer(markersMy.markers_historical_cultural);
-      map.removeLayer(markersMy.markers_morphological);
-      map.removeLayer(markersMy.markers_touristic);
-      map.removeLayer(markersMy.markers_critical);
-    }
-
+    cleanMapView();
     map.hasLayer(marker) || map.addLayer(marker);
     messages = i18n.t('messages.getting-location');
     if(marker.getPopup()!=null)
@@ -418,26 +422,11 @@ function afterLangInit(){
 
   $("#navbar-start").click(function(){
     //start the main page
-    $("#start-menu, #map").show();
-    $("#radio-class,#take-photo,#slider-rating,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,.legend_b,#comment").hide();
+    showOnly("#start-menu, #map");
     $("#navbar-start").addClass("ui-btn-active");
     $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
-
-    //clean map view
-    if (markersAll){
-      map.removeLayer(markersAll.markers_historical_cultural);
-      map.removeLayer(markersAll.markers_morphological);
-      map.removeLayer(markersAll.markers_touristic);
-      map.removeLayer(markersAll.markers_critical);
-    }
-    if (markersMy){
-      map.removeLayer(markersMy.markers_historical_cultural);
-      map.removeLayer(markersMy.markers_morphological);
-      map.removeLayer(markersMy.markers_touristic);
-      map.removeLayer(markersMy.markers_critical);
-    }
+    cleanMapView();
     map.hasLayer(marker) || map.addLayer(marker);
-    marker.closePopup();
   });
 
   /***
@@ -452,21 +441,7 @@ function afterLangInit(){
     $("#navbar-my").addClass("ui-btn-active");
     addLegend(ln.language.code);
     addLegendButton();
-
-    //clean map view
-    if(markersAll) {
-      map.removeLayer(markersAll.markers_historical_cultural);
-      map.removeLayer(markersAll.markers_morphological);
-      map.removeLayer(markersAll.markers_touristic);
-      map.removeLayer(markersAll.markers_critical);
-    }
-    if(markersMy) {
-      map.removeLayer(markersMy.markers_historical_cultural);
-      map.removeLayer(markersMy.markers_morphological);
-      map.removeLayer(markersMy.markers_touristic);
-      map.removeLayer(markersMy.markers_critical);
-    }
-
+    cleanMapView();
     map.hasLayer(marker) && map.removeLayer(marker);
 
     map.panTo(curLatLng);
@@ -526,19 +501,7 @@ function afterLangInit(){
     $('.legend_b').remove();
     addLegend(ln.language.code);
     addLegendButton();
-    //clean map view
-    if (markersAll){
-      map.removeLayer(markersAll.markers_historical_cultural);
-      map.removeLayer(markersAll.markers_morphological);
-      map.removeLayer(markersAll.markers_touristic);
-      map.removeLayer(markersAll.markers_critical);
-    }
-    if (markersMy){
-      map.removeLayer(markersMy.markers_historical_cultural);
-      map.removeLayer(markersMy.markers_morphological);
-      map.removeLayer(markersMy.markers_touristic);
-      map.removeLayer(markersMy.markers_critical);
-    }
+    cleanMapView();
     map.hasLayer(marker) && map.removeLayer(marker);
 
     //networkState_browser = serverReachable();
@@ -608,25 +571,11 @@ function afterLangInit(){
   ***/
 
   //change xls file
-  $("#navbar-change-xls").on("vclick", function () {
+  $("#navbar-change-xls").click(function(){
       showOnly("#change-xls");
       $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-register,#navbar-register,#navbar-about-map").removeClass("ui-btn-active");
       $("#navbar-change-xls").addClass("ui-btn-active");
-
-      //clean map view
-      if (markersAll) {
-          map.removeLayer(markersAll.markers_historical_cultural);
-          map.removeLayer(markersAll.markers_morphological);
-          map.removeLayer(markersAll.markers_touristic);
-          map.removeLayer(markersAll.markers_critical);
-      }
-      if (markersMy) {
-          map.removeLayer(markersMy.markers_historical_cultural);
-          map.removeLayer(markersMy.markers_morphological);
-          map.removeLayer(markersMy.markers_touristic);
-          map.removeLayer(markersMy.markers_critical);
-      }
-      marker.closePopup();
+      cleanMapView();
   });
 
   //information about Via Regina - map
@@ -634,21 +583,7 @@ function afterLangInit(){
     showOnly("#info-map");
     $("#navbar-start,#navbar-my,#navbar-all,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-about-map").addClass("ui-btn-active");
-
-    //clean map view
-    if(markersAll) {
-      map.removeLayer(markersAll.markers_historical_cultural);
-      map.removeLayer(markersAll.markers_morphological);
-      map.removeLayer(markersAll.markers_touristic);
-      map.removeLayer(markersAll.markers_critical);
-    }
-    if(markersMy) {
-      map.removeLayer(markersMy.markers_historical_cultural);
-      map.removeLayer(markersMy.markers_morphological);
-      map.removeLayer(markersMy.markers_touristic);
-      map.removeLayer(markersMy.markers_critical);
-    }
-    marker.closePopup();
+    cleanMapView();
   });
 
   //information about Via Regina - register
