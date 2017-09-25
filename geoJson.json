@@ -1,0 +1,30 @@
+{
+   "_id": "_design/geoJson",
+   "lang": "javascript",
+   "views": {
+       "by_id": {
+           "map": "function(doc) { emit(doc._id, doc); }"
+       }
+   },
+   "lists": {
+       "aggregated": "function(head, req) {
+         start({\"headers\": {\"Content-Type\": \"text/json\"}});
+         var features = [];
+         var currentRow = null;
+         while (currentRow = getRow()) {
+           features.push({
+              \"geometry\": {
+                \"type\": \"Point\",
+                \"coordinates\": currentRow.value.geopoint_locationPicker
+              },
+              \"type\": \"Feature\",
+              \"properties\": currentRow.value
+            });
+         }
+         send(toJSON({
+              \"type\": \"FeatureCollection\",
+              \"features\": features
+            }));
+       }"
+   }
+}

@@ -226,25 +226,13 @@ function afterLangInit(){
     /***
     GeoJSON - beginning
     ***/
-    var owsRootUrl = 'http://georep.como.polimi.it/geoserver/viaregina/ows';
-
-    var defaultParameters = {
-      service : 'WFS',
-      version : '2.0',
-      request : 'GetFeature',
-      typeName : 'viaregina:vreg',
-      outputFormat : 'text/javascript',
-      format_options : 'callback:getJson',
-      SrsName : 'EPSG:4326'
-    };
-
-    var parameters = L.Util.extend(defaultParameters);
-    var URL = owsRootUrl + L.Util.getParamString(parameters);
+    var owsRootUrl = 'http://localhost:5984/db_points_url/_design/geoJson/_list/aggregated/by_id/';
+    var URL = owsRootUrl;
 
     var ODK = null;
     var ajax = $.ajax({
       url : URL,
-      dataType : 'jsonp',
+      dataType : 'json',
       jsonpCallback : 'getJson',
       success : function (response){
         odk = response;
