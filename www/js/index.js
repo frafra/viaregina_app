@@ -9,6 +9,12 @@ var marker;
 var markersAll;
 var markersMy;
 var localDB;
+var navbarsSelector = "#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls";
+
+function activateOnlyNavbars(selector) {
+  $(navbarsSelector).removeClass("ui-btn-active");
+  $(selector).addClass("ui-btn-active");
+}
 
 function showOnly(selector) {
     $('#allmap-stat,#change-xls,#comment,#info-map,#info-register,#map,#mymap-stat,#radio-class,#register-page,#slider-rating,#start-menu,#take-photo,.legend,.legend_b').hide();
@@ -277,8 +283,7 @@ function afterLangInit(){
     showOnly("#radio-class");
     $("#rating_next").addClass("ui-disabled"); //disable "next"
     $("#class_next").addClass("ui-disabled"); //disable "next"
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").addClass("ui-disabled"); //disable all nav bars
-
+    activateOnlyNavbars('');
     $('#popupClass').css('overflow-y', 'scroll');
 
     //set all forms to initial values
@@ -320,8 +325,7 @@ function afterLangInit(){
   $("#navbar-start").click(function(){
     //start the main page
     showOnly("#start-menu, #map");
-    $("#navbar-start").addClass("ui-btn-active");
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
+    activateOnlyNavbars('#navbar-start');
     cleanMapView();
     map.hasLayer(marker) || map.addLayer(marker);
   });
@@ -334,8 +338,7 @@ function afterLangInit(){
     $('.legend_b').empty();
     $('.legend_b').remove();
     showOnly("#map");
-    $("#navbar-start,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
-    $("#navbar-my").addClass("ui-btn-active");
+    activateOnlyNavbars('#navbar-my');
     addLegend(ln.language.code);
     addLegendButton();
     cleanMapView();
@@ -406,17 +409,14 @@ function afterLangInit(){
       navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok'));
       //start the main page
       showOnly("#start-menu");
-      $("#navbar-start").addClass("ui-btn-active");
-      $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
+      activateOnlyNavbars('#navbar-start');
       map.hasLayer(marker) || map.addLayer(marker);
       map._onResize();
       return;
     }
     else{
       showOnly("#map");
-      $("#navbar-start,#navbar-my,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
-      $("#navbar-all").addClass("ui-btn-active");
-
+      activateOnlyNavbars('#navbar-all');
       map.panTo(curLatLng);
       marker.setLatLng (curLatLng);
 
@@ -427,8 +427,7 @@ function afterLangInit(){
           navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok') );
           //start the main page
           showOnly("#start-menu");
-          $("#navbar-start").addClass("ui-btn-active");
-          $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
+          activateOnlyNavbars('#navbar-start');
           map.hasLayer(marker) || map.addLayer(marker);
           map._onResize();
           return;
@@ -470,23 +469,21 @@ function afterLangInit(){
   //change xls file
   $("#navbar-change-xls").click(function(){
       showOnly("#change-xls");
-      $("#navbar-start,#navbar-my,#navbar-all,,#navbar-about-map").removeClass("ui-btn-active");
-      $("#navbar-change-xls").addClass("ui-btn-active");
+      activateOnlyNavbars('#navbar-change-xls');
       cleanMapView();
   });
 
   //information about Via Regina - map
   $("#navbar-about-map").click(function(){
     showOnly("#info-map");
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-change-xls").removeClass("ui-btn-active");
-    $("#navbar-about-map").addClass("ui-btn-active");
+    activateOnlyNavbars('#navbar-about-map');
     cleanMapView();
   });
 
   $("#class_cancel").click(function(){
     //go back to start page
     showOnly("#start-menu");
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-disabled"); //enable all nav bars
+    activateOnlyNavbars(navbars);
     marker.setIcon(classIcon());
     messages_warninglocation = i18n.t('messages.warning-location');
     marker.setPopupContent(messages_warninglocation).closePopup();
@@ -528,8 +525,7 @@ function afterLangInit(){
   $("#photo_next").click(function(){
     //submit to pouchdb and couchd, add result to map, set all variables to initial values
     showOnly("");
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-disabled"); //enable all nav bars
-
+    activateOnlyNavbars(navbars);
     var timestamp = new Date().toISOString();
     //here get LatLng of the marker
     //curLatLng=[marker.getLatLng().lat, marker.getLatLng().lng];
