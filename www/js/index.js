@@ -10,6 +10,11 @@ var markersAll;
 var markersMy;
 var localDB;
 
+function showOnly(selector) {
+    $('#allmap-stat,#change-xls,#comment,#info-map,#info-register,#map,#mymap-stat,#radio-class,#register-page,#slider-rating,#start-menu,#take-photo,.legend,.legend_b').hide();
+    $(selector).show();
+}
+
 function afterLangInit(){
   //initial values
   var curLatLng = [45.810991, 9.081521],
@@ -368,8 +373,7 @@ function afterLangInit(){
       marker.bindPopup(messages).openPopup();
 
     //enabling class selection to start contributing
-    $("#start-menu,#take-photo,#mymap-stat,#allmap-stat,#info-map,#change-xls,#info-register,#register-page,.legend,#slider-rating, #comment").hide();
-    $("#radio-class").show();
+    showOnly("#radio-class");
     $("#rating_next").addClass("ui-disabled"); //disable "next"
     $("#class_next").addClass("ui-disabled"); //disable "next"
     $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-register,#navbar-about-register").addClass("ui-disabled"); //disable all nav bars
@@ -443,8 +447,7 @@ function afterLangInit(){
     $('.legend').empty();
     $('.legend_b').empty();
     $('.legend_b').remove();
-    $("#start-menu,#radio-class,#slider-rating,#take-photo,#allmap-stat,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,.legend,#comment").hide();
-    $("#map").show();
+    showOnly("#map");
     $("#navbar-start,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-my").addClass("ui-btn-active");
     addLegend(ln.language.code);
@@ -542,8 +545,7 @@ function afterLangInit(){
     if (networkState == Connection.NONE || networkState_browser == false){
       navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok'));
       //start the main page
-      $("#start-menu").show();
-      $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat, #allmap-stat,.legend,.legend_b,#slider-rating,#comment").hide();
+      showOnly("#start-menu");
       $("#navbar-start").addClass("ui-btn-active");
       $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
       map.hasLayer(marker) || map.addLayer(marker);
@@ -551,8 +553,7 @@ function afterLangInit(){
       return;
     }
     else{
-      $("#start-menu,#radio-class,#take-photo,#mymap-stat,#info-map,#change-xls,#info-register,#register-page,.legend,#allmap-stat,#slider-rating,#comment").hide();
-      $("#map").show();
+      showOnly("#map");
       $("#navbar-start,#navbar-my,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
       $("#navbar-all").addClass("ui-btn-active");
 
@@ -565,8 +566,7 @@ function afterLangInit(){
         if(err){
           navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok') );
           //start the main page
-          $("#start-menu").show();
-          $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat, #allmap-stat,.legend,.legend_b,#slider-rating,#comment").hide();
+          showOnly("#start-menu");
           $("#navbar-start").addClass("ui-btn-active");
           $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
           map.hasLayer(marker) || map.addLayer(marker);
@@ -609,8 +609,7 @@ function afterLangInit(){
 
   //change xls file
   $("#navbar-change-xls").on("vclick", function () {
-      $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map, .legend,#slider-rating,#comment,#info-register,#register-page,#info-map,#change-xls").hide();
-      $("#change-xls").show();
+      showOnly("#change-xls");
       $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-register,#navbar-register,#navbar-about-map").removeClass("ui-btn-active");
       $("#navbar-change-xls").addClass("ui-btn-active");
 
@@ -632,8 +631,7 @@ function afterLangInit(){
 
   //information about Via Regina - map
   $("#navbar-about-map").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map, .legend,#slider-rating,#comment,#change-xls,#info-register,#register-page").hide();
-    $("#info-map").show();
+    showOnly("#info-map");
     $("#navbar-start,#navbar-my,#navbar-all,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-about-map").addClass("ui-btn-active");
 
@@ -655,24 +653,21 @@ function afterLangInit(){
 
   //information about Via Regina - register
   $("#navbar-about-register").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map,.legend,#slider-rating,#comment,#info-map,#change-xls,#register-page").hide();
-    $("#info-register").show();
+    showOnly("#info-register");
     $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-register").removeClass("ui-btn-active");
     $("#navbar-about-register").addClass("ui-btn-active");
   });
 
   //register
   $("#navbar-register").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#mymap-stat,#allmap-stat,#map,.legend,#slider-rating,#comment,#info-register,#info-map,#change-xls").hide();
-    $("#register-page").show();
+     showOnly("#register-page");
     $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register").removeClass("ui-btn-active");
     $("#navbar-register").addClass("ui-btn-active");
   });
 
   $("#class_cancel").click(function(){
     //go back to start page
-    $("#start-menu").show();
-    $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#slider-rating,#comment").hide();
+    showOnly("#start-menu");
     $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
     marker.setIcon(classIcon());
     messages_warninglocation = i18n.t('messages.warning-location');
@@ -687,40 +682,34 @@ function afterLangInit(){
   });
 
   $("#class_next").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#comment").hide();
-    $("#slider-rating").show();
+    showOnly("#slider-rating");
   });
 
   $("#rating_back").click(function(){
-    $("#start-menu,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
-    $("#radio-class").show();
+    showOnly("#radio-class");
   });
 
   $("#rating_next").click(function(){
-    $("#start-menu,#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating").hide();
-    $("#comment").show();
+   showOnly("#comment");
   });
 
   $("#comment_back").click(function(){
-    $("#start-menu,#radio-class,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
-    $("#slider-rating").show();
+    showOnly("#slider-rating");
   });
 
   $("#comment_next").click(function(){
     comment =  $("#comment-input").val(); //get comment
     //console.log("comment: " + comment);
-    $("#start-menu,#radio-class,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#slider-rating,#comment").hide();
-    $("#take-photo").show();
+    showOnly("#take-photo");
   });
 
   $("#photo_back").click(function(){
-    $("#start-menu,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat,.legend,#radio-class,#slider-rating").hide();
-    $("#comment").show();
+    showOnly("#comment");
   });
 
   $("#photo_next").click(function(){
     //submit to pouchdb and couchd, add result to map, set all variables to initial values
-    $("#start-menu,#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#comment,#slider-rating").hide();
+    showOnly("");
     $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
 
     var timestamp = new Date().toISOString();
@@ -767,8 +756,7 @@ function afterLangInit(){
     }
 
     function alertDismissed_contributionSuccess() {
-      $("#start-menu").show();
-      $("#radio-class,#take-photo,#info-map,#change-xls,#info-register,#register-page,#mymap-stat,#allmap-stat, .legend,#slider-rating,#comment").hide();
+      showOnly("#start-menu");
       $("#navbar-start").addClass("ui-btn-active");
       marker.setIcon(classIcon());
       messages_warninglocation = i18n.t('messages.warning-location');
