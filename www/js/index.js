@@ -73,12 +73,9 @@ function afterLangInit(){
     console.log("sync error: " + err);
   }
 
-  //check whether it is the first time launch
-  var isApplaunch = window.localStorage.getItem('isLaunch');
-  if (isApplaunch){
-    $("#start-page").hide();
-    $("#main-page").show();
-    rawXlsData = window.localStorage.getItem('xlsData'); // to check if the xlsData exists
+  $("#main-page").show();
+  rawXlsData = window.localStorage.getItem('xlsData'); // to check if the xlsData exists
+  if (rawXlsData) {
     xlsData = JSON.parse(rawXlsData); //change the simple string to object,we need data types to construct the html
     for (var i = 0; i < xlsData.length; i++) { //yeki yeki obj haro barmidare
         currentRowi = xlsData[i];
@@ -114,106 +111,6 @@ function afterLangInit(){
     startByX(); // here is the place where dynamic generator is called and start generating the html
     // This would be the start point of Dynamic generator in case there ISN'T data in xlsData local storage.
   }
-  else { //first time launch
-    $("#start-page").show();
-    $("#main-page").hide();
-  }
-
-  /***
-  registration - beginning
-  ***/
-  var gender=$("#gender").val();
-  var age=$("#age").val();
-  var workstatus=$("#workstatus").val();
-
-  $("#gender").bind("change", function() {
-    gender = $(this).val();
-  });
-  $("#age").bind("change", function() {
-    age = $(this).val();
-  });
-  $("#workstatus").bind("change", function() {
-    workstatus = $(this).val();
-  });
-
-  $("#register").click(function(){
-    //networkState_browser = serverReachable();
-    //check Internet connection during registration
-    if (networkState == Connection.NONE || networkState_browser == false){
-      navigator.notification.alert(i18n.t('messages.registration-noInternet'), null, "Via Regina", i18n.t('messages.ok'));
-      return;
-    }
-
-    //console.log(gender + ", " + age + ", " + workstatus);
-    //check inputs
-    if((gender==null)||(age==null)||(workstatus==null)){
-      navigator.notification.alert(i18n.t('messages.registration-form-empty'), null, "Via Regina", i18n.t('messages.ok'));
-      return;
-    }
-
-    //register user
-    var remoteUsersDB = new PouchDB(SETTINGS.db_users_url);
-    var timestamp= new Date().toISOString();
-    remoteUsersDB.get(uuid).then(function (doc) {
-      //if exists, update the user
-      //console.log(uuid);
-      var user = {
-        _id: uuid,
-        _rev: doc._rev,
-        timestamp: timestamp,
-        gender: gender,
-        age: age,
-        workstatus: workstatus
-      };
-      remoteUsersDB.put(user, function callback(err, result) {
-        if (!err) {
-          //console.log('Successfully updated the user!');
-          navigator.notification.alert(i18n.t('messages.registration-success'), alertDismissed_registrationSuccess, "Via Regina", i18n.t('messages.ok'));
-        }
-        else {
-          //console.log('NOT successfully updated the user!');
-          navigator.notification.alert(i18n.t('messages.error') + " " + err, null, "Via Regina", i18n.t('messages.ok'));
-        }
-      });
-    }).catch(function (err) {
-      //if not exists, add the user
-      var user = {
-        _id: uuid,
-        timestamp: timestamp,
-        gender: gender,
-        age: age,
-        workstatus: workstatus
-      };
-      remoteUsersDB.put(user, function callback(err, result) {
-        if (!err) {
-          //console.log('Successfully registered the user!');
-          navigator.notification.alert(i18n.t('messages.registration-success'), alertDismissed_registrationSuccess, "Via Regina", i18n.t('messages.ok'));
-        }
-        else {
-          //console.log('NOT successfully registered the user!');
-          navigator.notification.alert(i18n.t('messages.error') + " " + err, null, "Via Regina", i18n.t('messages.ok'));
-        }
-      });
-    });
-
-    function alertDismissed_registrationSuccess() {
-      $("#start-page").hide();
-      $("#main-page,#start-menu,#map").show();
-      //resize map to cover whole screen
-      var mapEl = $('#map');
-      mapEl.height($(document).height() - mapEl.offset().top);
-      var mapEl = $('.tabs');
-      mapEl.height($(document).height() - mapEl.offset().top);
-      map._onResize();
-      //set isLaunch as true
-      window.localStorage.setItem('isLaunch',true);
-      window.localStorage.setItem('xlsData', JSON.stringify(rowList));
-      startByX(); // jump to my dynamic.gx.js /////
-    }
-  });
-  /***
-  registration - end
-  ***/
 
   //resize map to cover whole screen
   var mapEl = $('#map');
@@ -380,7 +277,7 @@ function afterLangInit(){
     showOnly("#radio-class");
     $("#rating_next").addClass("ui-disabled"); //disable "next"
     $("#class_next").addClass("ui-disabled"); //disable "next"
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-register,#navbar-about-register").addClass("ui-disabled"); //disable all nav bars
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").addClass("ui-disabled"); //disable all nav bars
 
     $('#popupClass').css('overflow-y', 'scroll');
 
@@ -424,7 +321,7 @@ function afterLangInit(){
     //start the main page
     showOnly("#start-menu, #map");
     $("#navbar-start").addClass("ui-btn-active");
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
     cleanMapView();
     map.hasLayer(marker) || map.addLayer(marker);
   });
@@ -437,7 +334,7 @@ function afterLangInit(){
     $('.legend_b').empty();
     $('.legend_b').remove();
     showOnly("#map");
-    $("#navbar-start,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-start,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
     $("#navbar-my").addClass("ui-btn-active");
     addLegend(ln.language.code);
     addLegendButton();
@@ -510,14 +407,14 @@ function afterLangInit(){
       //start the main page
       showOnly("#start-menu");
       $("#navbar-start").addClass("ui-btn-active");
-      $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+      $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
       map.hasLayer(marker) || map.addLayer(marker);
       map._onResize();
       return;
     }
     else{
       showOnly("#map");
-      $("#navbar-start,#navbar-my,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+      $("#navbar-start,#navbar-my,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
       $("#navbar-all").addClass("ui-btn-active");
 
       map.panTo(curLatLng);
@@ -531,7 +428,7 @@ function afterLangInit(){
           //start the main page
           showOnly("#start-menu");
           $("#navbar-start").addClass("ui-btn-active");
-          $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+          $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-btn-active");
           map.hasLayer(marker) || map.addLayer(marker);
           map._onResize();
           return;
@@ -573,7 +470,7 @@ function afterLangInit(){
   //change xls file
   $("#navbar-change-xls").click(function(){
       showOnly("#change-xls");
-      $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-register,#navbar-register,#navbar-about-map").removeClass("ui-btn-active");
+      $("#navbar-start,#navbar-my,#navbar-all,,#navbar-about-map").removeClass("ui-btn-active");
       $("#navbar-change-xls").addClass("ui-btn-active");
       cleanMapView();
   });
@@ -581,29 +478,15 @@ function afterLangInit(){
   //information about Via Regina - map
   $("#navbar-about-map").click(function(){
     showOnly("#info-map");
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-btn-active");
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-change-xls").removeClass("ui-btn-active");
     $("#navbar-about-map").addClass("ui-btn-active");
     cleanMapView();
-  });
-
-  //information about Via Regina - register
-  $("#navbar-about-register").click(function(){
-    showOnly("#info-register");
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-register").removeClass("ui-btn-active");
-    $("#navbar-about-register").addClass("ui-btn-active");
-  });
-
-  //register
-  $("#navbar-register").click(function(){
-     showOnly("#register-page");
-    $("#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register").removeClass("ui-btn-active");
-    $("#navbar-register").addClass("ui-btn-active");
   });
 
   $("#class_cancel").click(function(){
     //go back to start page
     showOnly("#start-menu");
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-disabled"); //enable all nav bars
     marker.setIcon(classIcon());
     messages_warninglocation = i18n.t('messages.warning-location');
     marker.setPopupContent(messages_warninglocation).closePopup();
@@ -645,7 +528,7 @@ function afterLangInit(){
   $("#photo_next").click(function(){
     //submit to pouchdb and couchd, add result to map, set all variables to initial values
     showOnly("");
-    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls,#navbar-about-register,#navbar-register").removeClass("ui-disabled"); //enable all nav bars
+    $("#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls").removeClass("ui-disabled"); //enable all nav bars
 
     var timestamp = new Date().toISOString();
     //here get LatLng of the marker
