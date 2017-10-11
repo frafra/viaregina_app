@@ -38,9 +38,9 @@ function cleanMapView() {
   marker.closePopup();
 }
 
+var curLatLng = [45.810991, 9.081521];
 function afterLangInit(){
   //initial values
-  var curLatLng = [45.810991, 9.081521],
   curLatLngAccuracy = 0,
   classification = "",
   image = "",
