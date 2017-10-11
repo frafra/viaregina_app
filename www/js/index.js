@@ -162,6 +162,7 @@ function afterLangInit(){
     /***
     GeoJSON - beginning
     ***/
+    /*
     var owsRootUrl = 'http://localhost:5984/db_points_url/_design/geoJson/_list/aggregated/by_id/';
     var URL = owsRootUrl;
 
@@ -174,6 +175,7 @@ function afterLangInit(){
         odk = response;
       }
     });
+    */
     /***
     GeoJSON - end
     ***/
