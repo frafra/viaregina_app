@@ -1152,12 +1152,8 @@ function process_wb(wb) {
 
 
     output = process_sheets(wb);
-    if ($('#navbar-change-xls').hasClass('ui-btn-active')) {
-        window.localStorage.setItem('xlsData', JSON.stringify(rowList));
-        location.reload();
-    }
-    if (typeof console !== 'undefined')
-        console.log("xls - finished", new Date());
+    window.localStorage.setItem('xlsData', JSON.stringify(rowList));
+    location.reload();
 }
 
 function process_sheets(workbook) {

@@ -116,6 +116,17 @@ function afterLangInit(){
 
     startByX(); // here is the place where dynamic generator is called and start generating the html
     // This would be the start point of Dynamic generator in case there ISN'T data in xlsData local storage.
+  } else {
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", "/spec.xls", true);
+    oReq.responseType = "arraybuffer";
+    oReq.onload = function(e) {
+        var arraybuffer = oReq.response;
+        var data = new Uint8Array(arraybuffer);
+        var wb = XLSX.read(data, {type:"array"});
+        process_wb(wb);
+    };
+    oReq.send();
   }
 
   //resize map to cover whole screen
