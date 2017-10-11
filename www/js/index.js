@@ -206,13 +206,6 @@ function afterLangInit(){
       errorTileUrl:'como_tiles/error-tile.png'
     });
     tilelayer.addTo(map);
-
-    /*if(remotePointsURL) {
-      var opts = {live: true};
-      localDB.replicate.to(remotePointsURL, opts, syncError);
-    }
-    function syncError() {
-    }*/
   }
 
   function classIcon(classPOI) {
@@ -703,13 +696,6 @@ function afterLangInit(){
   /***
   IMAGE - end
   ***/
-
-  registerXlsRCallback();  // goes to Dynamic.gx.js and call registerXlsRCallback function to start processing a xls file.
-  //this would be the Start point of the Dynamic generator app in case there IS xlsData in local storage
-
-  $('#altXlsFile').on("vclick", function () {
-      changeXls();
-  });
 }
 
 function initialize() {
