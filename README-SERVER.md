@@ -8,5 +8,5 @@ Fedora:
 # npm install -g add-cors-to-couchdb
 $ add-cors-to-couchdb
 $ curl -X PUT http://localhost:5984/db_points_url
-$ curl -X PUT http://localhost:5984/db_users_url
+$ ./geojson.sh
 ```
