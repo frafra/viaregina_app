@@ -9,7 +9,7 @@ var marker;
 var markersAll;
 var markersMy;
 var localDB;
-var navbarsSelector = "#navbar-start,#navbar-my,#navbar-all,#navbar-about-map,#navbar-change-xls";
+var navbarsSelector = "#navbar-start,#navbar-my,#navbar-all,#navbar-about-map";
 
 function activateOnlyNavbars(selector) {
   $(navbarsSelector).removeClass("ui-btn-active");
@@ -17,7 +17,7 @@ function activateOnlyNavbars(selector) {
 }
 
 function showOnly(selector) {
-    $('#allmap-stat,#change-xls,#comment,#info-map,#info-register,#map,#mymap-stat,#radio-class,#register-page,#slider-rating,#start-menu,#take-photo,.legend,.legend_b').hide();
+    $('#allmap-stat,#comment,#info-map,#info-register,#map,#mymap-stat,#radio-class,#register-page,#slider-rating,#take-photo,.legend,.legend_b,#_dynamicContentHolder').hide();
     $(selector).show();
 }
 
@@ -291,7 +291,7 @@ function afterLangInit(){
       marker.bindPopup(messages).openPopup();
 
     //enabling class selection to start contributing
-    showOnly("#radio-class");
+    showOnly("#radio-class,#map,#_dynamicContentHolder");
     $("#rating_next").addClass("ui-disabled"); //disable "next"
     $("#class_next").addClass("ui-disabled"); //disable "next"
     activateOnlyNavbars('');
@@ -335,7 +335,7 @@ function afterLangInit(){
 
   $("#navbar-start").click(function(){
     //start the main page
-    showOnly("#start-menu, #map");
+    showOnly("#start-menu,#map,#_dynamicContentHolder");
     activateOnlyNavbars('#navbar-start');
     cleanMapView();
     map.hasLayer(marker) || map.addLayer(marker);
@@ -476,13 +476,6 @@ function afterLangInit(){
   /***
   show the all contributions - end
   ***/
-
-  //change xls file
-  $("#navbar-change-xls").click(function(){
-      showOnly("#change-xls");
-      activateOnlyNavbars('#navbar-change-xls');
-      cleanMapView();
-  });
 
   //information about Via Regina - map
   $("#navbar-about-map").click(function(){
