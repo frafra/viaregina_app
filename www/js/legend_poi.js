@@ -400,7 +400,7 @@ function addLegendButton(){
     //console.log("clicked on bing!");
     //networkState_browser = serverReachable();
     if (networkState == Connection.NONE || networkState_browser == false)
-    navigator.notification.alert(i18n.t('messages.bing-noInternet'), null, "Via Regina", i18n.t('messages.ok'));
+    navigator.notification.alert(i18n.t('messages.bing-noInternet'), null, "PSAB", i18n.t('messages.ok'));
     else {
       map.removeLayer(tilelayer);
       map.addLayer(bing);
@@ -417,7 +417,7 @@ function addLegendButton(){
     //networkState_browser = serverReachable();
 
     if (networkState == Connection.NONE || networkState_browser == false){
-      navigator.notification.alert(i18n.t('messages.osm-noInternet'), null, "Via Regina", i18n.t('messages.ok'));
+      navigator.notification.alert(i18n.t('messages.osm-noInternet'), null, "PSAB", i18n.t('messages.ok'));
       tilelayer = L.tileLayer('como_tiles/{z}/{x}/{y}.png', {
         errorTileUrl:'como_tiles/error-tile.png'
       });

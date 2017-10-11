@@ -1,29 +1,12 @@
 {
   "polimi-link": "<a href='http://www.polimi.it/en/english-version/' target='_blank'><img class='logo' style='max-width:15%; padding-right:10px;' src='img/polimi_3.png'></a>",
-  "registration":
-  {
-    "label": "Welcome to Via Regina Slow Tourism! Please insert the following information:",
-    "gender-label": "Gender",
-    "gender-male": "Male",
-    "gender-female": "Female",
-    "gender-unknown": "Prefer not to say",
-    "age-label": "Age",
-    "work-label": "Work status",
-    "work-employed": "Employed",
-    "work-student": "Student",
-    "work-unemployed": "Unemployed and seeking work",
-    "work-retired": "Retired",
-    "work-other": "Other",
-    "button": "Register"
-  },
   "navbar":
   {
     "add": "Add",
     "my": "My Map",
     "all": "Everyone",
     "about-map": "About",
-    "about-register": "About",
-    "register": "Register"
+    "about-register": "About"
   },
   "buttons":
   {
@@ -74,7 +57,6 @@
   },
   "messages":
   {
-    "registration-form-empty": "Please complete the registration form!",
     "geolocation-error": "Can not get your current location!",
     "registration-success": "Thank you! Now you can start to contribute!",
     "marker-popup": "Not your current location? <br> Drag the marker to correct!",
@@ -93,7 +75,7 @@
     "storage-error": "This browser does not support local storage.",
     "error": "Error!"
   },
-  "about": "<a href='http://www.viaregina.eu/' target='_blank'><b>The Paths of Regina</b></a> is an INTERREG project between Italy and Switzerland. <b>Via Regina Slow Tourism</b> (App and WebGIS) is a project of <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, developed as an extension of the previous project and funded by: <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.en.regione.lombardia.it' target='_blank'>Lombardy Region</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> and <a href='http://www.sviluppocomo.it/en/' target='_blank'>Sviluppo Como</a>.<br>The App acknowledges the <a href='https://github.com/cartogroup/emomap' target='_blank'>project EmoMap</a>, developed by the <a href='http://cartography.tuwien.ac.at/' target='_blank'>Research Group Cartography</a> in the <a href='http://geo.tuwien.ac.at/' target='_blank'>Department of Geodesy and Geoinformation</a> in <a href='https://www.tuwien.ac.at/en/' target='_blank'>TU Wien University</a>. The code of the project is protected by <a href='https://github.com/cartogroup/emomap/blob/51e8f5407b6dfee7b0c85aa6e96aa529bd44cbc5/LICENSE.txt' target='_blank'>this license</a>.",
+  "about": "<h3>PSAB</h3><i>To be filled</i>.",
   "stat":
   {
     "total-my": "In total, you have ",

@@ -452,9 +452,9 @@ EndRepeat.prototype.submit = function () { // function submit into couch db
 
 
     if (networkState == Connection.NONE || networkState_browser == false) //check existence of internet connection
-        navigator.notification.alert(i18n.t('messages.contribution-success-noInternet'), alertDismissed_contributionSuccess, "Via Regina", i18n.t('messages.ok'));
+        navigator.notification.alert(i18n.t('messages.contribution-success-noInternet'), alertDismissed_contributionSuccess, "PSAB", i18n.t('messages.ok'));
     else
-        navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "Via Regina", i18n.t('messages.ok'));
+        navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "PSAB", i18n.t('messages.ok'));
 
     function alertDismissed_contributionSuccess() {
         return; // todo

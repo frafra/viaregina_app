@@ -1,29 +1,12 @@
 {
   "polimi-link": "<a href='http://www.polimi.it/' target='_blank'><img class='logo' style='max-width:15%; padding-right:10px;' src='img/polimi_3.png'></a>",
-  "registration":
-  {
-    "label": "Benvenuto su Via Regina Slow Tourism! Ti chiediamo di inserire le seguenti informazioni:",
-    "gender-label": "Genere",
-    "gender-male": "Uomo",
-    "gender-female": "Donna",
-    "gender-unknown": "Non specificato",
-    "age-label": "Età",
-    "work-label": "Condizione lavorativa",
-    "work-employed": "Occupato",
-    "work-student": "Studente",
-    "work-unemployed": "Disoccupato",
-    "work-retired": "Pensionato",
-    "work-other": "Altro",
-    "button": "Registrati"
-  },
   "navbar":
   {
     "add": "Aggiungi",
     "my": "La mia mappa",
     "all": "Mappa degli utenti",
     "about-map": "Informazioni",
-    "about-register": "Informazioni",
-    "register": "Registrati"
+    "about-register": "Informazioni"
   },
   "buttons":
   {
@@ -74,7 +57,6 @@
   "photo-choose": "Scegli un'immagine...",
   "messages":
   {
-    "registration-form-empty": "Completa i tuoi dati!",
     "geolocation-error": "Non è possibile trovare la tua posizione corrente!",
     "registration-success": "Grazie! Ora puoi iniziare a contribuire all’applicazione!",
     "marker-popup": "Non è la tua posizione corrente? Trascina l’icona per correggerla!",
@@ -93,7 +75,7 @@
     "storage-error": "Questo browser non supporta la memoria locale.",
     "error": "Errore!"
   },
-  "about": "<a href='http://www.viaregina.eu/' target='_blank'><b>I Cammini della Regina</b></a> è un progetto INTERREG Italia-Svizzera. Il progetto <b>Via Regina Slow Tourism</b>, estensione del precedente e nell'ambito del quale è stato sviluppato questo sistema (App e WebGIS), è un progetto del <a href='http://www.polimi.it/' target='_blank'>Politecnico di Milano</a>, finanziato da: <a href='http://www.polimi.it/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.regione.lombardia.it' target='_blank'>Regione Lombardia</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> e <a href='http://www.sviluppocomo.it/' target='_blank'>Sviluppo Como</a>.<br>Si ringraziano anche il <a href='https://github.com/cartogroup/emomap' target='_blank'>progetto EmoMap</a>, sviluppato dal <a href='http://cartography.tuwien.ac.at/' target='_blank'>Research Group Cartography</a> del <a href='http://geo.tuwien.ac.at/' target='_blank'>Dipartimento di Geodesia e Geoinformazione</a> presso l'<a href='https://www.tuwien.ac.at/en/' target='_blank'>Università TU Wien</a>. Il codice del progetto è disponibile sotto la <a href='https://github.com/cartogroup/emomap/blob/51e8f5407b6dfee7b0c85aa6e96aa529bd44cbc5/LICENSE.txt' target='_blank'>seguente licenza</a>.",
+  "about": "<h3>PSAB</h3><i>Testo da personalizzare</i>.",
   "stat":
   {
     "total-my": "In totale, hai ",

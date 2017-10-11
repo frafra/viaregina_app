@@ -417,7 +417,7 @@ function afterLangInit(){
 
     //networkState_browser = serverReachable();
     if (networkState == Connection.NONE || networkState_browser == false){
-      navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok'));
+      navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "PSAB", i18n.t('messages.ok'));
       //start the main page
       showOnly("#start-menu");
       activateOnlyNavbars('#navbar-start');
@@ -435,7 +435,7 @@ function afterLangInit(){
       var remotePointsDB = new PouchDB(remotePointsURL, {size: 50});
       remotePointsDB.allDocs({include_docs: true, descending: true}, function(err, doc) {
         if(err){
-          navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "Via Regina", i18n.t('messages.ok') );
+          navigator.notification.alert(i18n.t('messages.allemomap-nointernet'), null, "PSAB", i18n.t('messages.ok') );
           //start the main page
           showOnly("#start-menu");
           activateOnlyNavbars('#navbar-start');
@@ -477,7 +477,7 @@ function afterLangInit(){
   show the all contributions - end
   ***/
 
-  //information about Via Regina - map
+  //information about PSAB - map
   $("#navbar-about-map").click(function(){
     showOnly("#info-map");
     activateOnlyNavbars('#navbar-about-map');
@@ -557,13 +557,13 @@ function afterLangInit(){
         //console.log('Successfully posted a todo!');
         //networkState_browser = serverReachable();
         if (networkState == Connection.NONE || networkState_browser == false)
-        navigator.notification.alert(i18n.t('messages.contribution-success-noInternet'), alertDismissed_contributionSuccess, "Via Regina", i18n.t('messages.ok'));
+        navigator.notification.alert(i18n.t('messages.contribution-success-noInternet'), alertDismissed_contributionSuccess, "PSAB", i18n.t('messages.ok'));
         else
-        navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "Via Regina", i18n.t('messages.ok'));
+        navigator.notification.alert(i18n.t('messages.contribution-success'), alertDismissed_contributionSuccess, "PSAB", i18n.t('messages.ok'));
       }
       else {
-        //navigator.notification.alert(err, "Via Regina", i18n.t('messages.ok'));
-        navigator.notification.alert(i18n.t('messages.storage-error'), null, "Via Regina", i18n.t('messages.ok'));
+        //navigator.notification.alert(err, "PSAB", i18n.t('messages.ok'));
+        navigator.notification.alert(i18n.t('messages.storage-error'), null, "PSAB", i18n.t('messages.ok'));
       }
     });
 
@@ -679,7 +679,7 @@ function afterLangInit(){
     }
     else{
       //console.log("not app, you are on browser");
-      navigator.notification.alert(i18n.t('messages.photo-unavailable'), null, "Via Regina", i18n.t('messages.ok') );
+      navigator.notification.alert(i18n.t('messages.photo-unavailable'), null, "PSAB", i18n.t('messages.ok') );
     }
   });
 

@@ -9,76 +9,19 @@
   <link rel="stylesheet" href="css/lib/leaflet.css" />
   <link rel="stylesheet" href="css/lib/MarkerCluster.Default.css" />
   <link rel="stylesheet" type="text/css" href="css/index.css">
-  <title>Via Regina</title>
+  <title>PSAB</title>
 </head>
 <body onresize="resize()" onload="onLoad()">
   <div data-role="page" id="page">
     <div id="start-page" data-role="main" class="ui-content">
       <div style="text-align:center;">
         <span data-i18n="[html]polimi-link"><a href="http://www.polimi.it/en/english-version/" target="_blank"><img class="logo" style="max-width:15%; padding-right:10px;" src="img/polimi_3.png"></a></span>
-        <a href="http://www.viaregina.eu/" target="_blank"><img class="logo" style="max-width:20%;" src="img/viaregina.png"></a>
-      </div>
-      <div data-role="tabs" class="tabs-register">
-        <div data-role="navbar">
-          <ul>
-            <li><a id="navbar-register" class="ui-btn-active" data-i18n="navbar.register">Register</a></li>
-            <li><a id="navbar-about-register" data-i18n="navbar.about-register">About</a></li>
-          </ul>
-        </div>
-
-        <div id="register-page">
-          <label data-i18n="registration.label">Welcome to Via Regina Slow Tourism! Please insert the following information:</label>
-          <fieldset class="ui-field-contain">
-            <label for="gender" data-i18n="registration.gender-label">Gender</label>
-            <select name="gender" id="gender" class="placeholder">
-              <option selected disabled>-</option>
-              <option value="male" data-i18n="registration.gender-male">Male</option>
-              <option value="female" data-i18n="registration.gender-female">Female</option>
-              <option value="undefined" data-i18n="registration.gender-unknown">Prefer not to say</option>
-            </select>
-          </fieldset>
-          <fieldset class="ui-field-contain">
-            <label for="age" data-i18n="registration.age-label">Age</label>
-            <select name="age" id="age" class="placeholder">
-              <option selected disabled>-</option>
-              <option value="<15">&#60;15</option>
-              <option value="15-22">15-22</option>
-              <option value="23-30">23-30</option>
-              <option value="31-40">31-40</option>
-              <option value="41-55">41-55</option>
-              <option value=">55">&#62;55</option>
-            </select>
-          </fieldset>
-          <fieldset class="ui-field-contain">
-            <label for="workstatus" data-i18n="registration.work-label">Work status</label>
-            <select name="workstatus" id="workstatus" class="placeholder">
-              <option selected disabled>-</option>
-              <option value="student" data-i18n="registration.work-student">Student</option>
-              <option value="employed" data-i18n="registration.work-employed">Employed</option>
-              <option value="unemployed" data-i18n="registration.work-unemployed">Unemployed</option>
-              <option value="retired" data-i18n="registration.work-retired">Retired</option>
-              <option value="other" data-i18n="registration.work-other">Other</option>
-            </select>
-          </fieldset>
-          <fieldset class="ui-field-contain">
-            <label for="xlsFile" data-i18n="registration.work-label">choose xls file</label>
-            <input type="file" id="xlsFile">
-          </fieldset>
-          <a id="register" data-role="button" data-icon="plus" data-iconpos="right" data-inline="true" data-theme="c" data-i18n="registration.button">Register</a>
-        </div>
-
-        <div id="info-register">
-          <p class="text_about" data-i18n="[html]about"><a href='http://www.viaregina.eu/' target='_blank'><b>The Paths of Regina</b></a> is an INTERREG project between Italy and Switzerland. <b>Via Regina Slow Tourism</b> (App and WebGIS) is a project of <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, developed as an extension of the previous project and funded by: <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.en.regione.lombardia.it' target='_blank'>Lombardy Region</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> and <a href='http://www.sviluppocomo.it/en/' target='_blank'>Sviluppo Como</a>.
-            <br>The App acknowledges the <a href='https://github.com/cartogroup/emomap' target='_blank'>project EmoMap</a>, developed by the <a href='http://cartography.tuwien.ac.at/' target='_blank'>Research Group Cartography</a> in the <a href='http://geo.tuwien.ac.at/' target='_blank'>Department of Geodesy and Geoinformation</a> in <a href='https://www.tuwien.ac.at/en/' target='_blank'>TU Wien University</a>. The code of the project is protected by <a href='https://github.com/cartogroup/emomap/blob/51e8f5407b6dfee7b0c85aa6e96aa529bd44cbc5/LICENSE.txt' target='_blank'>this license</a>.
-          </p>
-        </div>
       </div>
     </div>
 
     <div role="main" class="ui-content" id="main-page">
       <div style="text-align:center;">
         <span data-i18n="[html]polimi-link"><a href="http://www.polimi.it/en/english-version/" target="_blank"><img class="logo" style="max-width:15%; padding-right:10px;" src="img/polimi_3.png"></a></span>
-        <a href="http://www.viaregina.eu/" target="_blank"><img class="logo" style="max-width:20%;" src="img/viaregina.png"></a>
       </div>
       <div data-role="tabs" class="tabs">
         <div data-role="navbar">
@@ -106,8 +49,7 @@
         </div>
 
         <div id="info-map">
-          <p class="text_about" class="notUnderlinedLink" data-i18n="[html]about"><a href='http://www.viaregina.eu/' target='_blank'><b>The Paths of Regina</b></a> is an INTERREG project between Italy and Switzerland. <b>Via Regina Slow Tourism</b> (App and WebGIS) is a project of <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, developed as an extension of the previous project and funded by: <a href='http://www.polimi.it/en/english-version/' target='_blank'>Politecnico di Milano</a>, <a href='http://www.en.regione.lombardia.it' target='_blank'>Lombardy Region</a>, <a href='http://www.lom.camcom.it/' target='_blank'>Unioncamere Lombardia</a> and <a href='http://www.sviluppocomo.it/en/' target='_blank'>Sviluppo Como</a>.
-            <br>The App acknowledges the <a href='https://github.com/cartogroup/emomap' target='_blank'>project EmoMap</a>, developed by the <a href='http://cartography.tuwien.ac.at/' target='_blank'>Research Group Cartography</a> in the <a href='http://geo.tuwien.ac.at/' target='_blank'>Department of Geodesy and Geoinformation</a> in <a href='https://www.tuwien.ac.at/en/' target='_blank'>TU Wien University</a>. The code of the project is protected by <a href='https://github.com/cartogroup/emomap/blob/51e8f5407b6dfee7b0c85aa6e96aa529bd44cbc5/LICENSE.txt' target='_blank'>this license</a>.
+          <p class="text_about" class="notUnderlinedLink" data-i18n="[html]about">
           </p>
         </div>
       </div>
