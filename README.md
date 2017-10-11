@@ -50,6 +50,14 @@ $ cordova build
 $ cordova run
 ```
 
+### Android
+```
+# dnf install java-1.8.0-openjdk-devel gradle
+$ export PATH=$HOME/Android/Sdk/platform-tools:$PATH
+$ cordova platform add android
+$ cordova build android
+```
+
 ## Issues
 
 ## Ad blocking
