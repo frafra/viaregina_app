@@ -367,8 +367,9 @@ function afterLangInit(){
       var imageLength=[];
       var ii = 0;
       doc.rows.forEach(function(todo) {
-        if(todo.doc.location!=null&&todo.doc.classification!=null){
-          locations.push(todo.doc.location);
+        console.log(todo.doc);
+        if(todo.doc.geopoint_locationPicker!=null){
+          locations.push(todo.doc.geopoint_locationPicker);
           classes.push(todo.doc.classification);
           ratings.push(todo.doc.rating);
           comments.push(todo.doc.comment);
