@@ -58,6 +58,12 @@ $ cordova platform add android
 $ cordova build android
 ```
 
+### Android (PSAB template)
+```
+$ cp platforms/android/build/outputs/apk/android-debug.apk template.apk
+$ zip -d template.apk 'assets/www/spec.xls'
+```
+
 ## Issues
 
 ## Ad blocking
